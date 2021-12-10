@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float thrust = 1f;
     public float speed = 1f;
 
-    protected bool canJump = false;
+    protected bool canJump = true;
     protected bool timeJump = true;
     protected bool strafeLeft = false;
     protected bool strafeRight = false;
@@ -24,9 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         mySprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, 25.0f, 56.0f), new Vector2(0.5f, 0.5f), 100.0f);
 
-        sr.color = new Color(0.9f, 0.9f, 0.5f, 1.0f);
         sr.sprite = mySprite;
-        transform.position = new Vector3(0.0f, -2.0f, 0.0f);
     }
 
     protected void ReloadTimeForJump()
@@ -35,13 +33,13 @@ public class PlayerMovement : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Blocks"){
+        if (collision.gameObject.tag == "Block"){
             canJump = true;
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Blocks")
+        if (collision.gameObject.tag == "Block")
         {
             canJump = true;
         }
