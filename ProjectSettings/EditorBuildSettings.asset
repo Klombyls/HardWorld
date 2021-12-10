@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 1cf281771b8b07d489369c58f6c1d1ee
+  - enabled: 1
+    path: Assets/Scenes/DeleteSaveMenu.unity
+    guid: b6dcdb3dfc827ef418b9b9b589a6886f
+  - enabled: 1
+    path: Assets/Scenes/World.unity
+    guid: 11e8be9281002cf40966891e54800776
   m_configObjects: {}

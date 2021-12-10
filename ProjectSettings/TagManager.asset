@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Blocks
+=======
+  - Block
+>>>>>>> remotes/origin/dev002
   layers:
   - Default
   - TransparentFX
