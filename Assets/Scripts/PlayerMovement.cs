@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Texture2D tex;
-
+    Animator animator;
     public Rigidbody2D rb2D;
-    public Sprite mySprite;
     public SpriteRenderer sr;
     public float thrust = 1f;
     public float speed = 1f;
@@ -18,15 +16,10 @@ public class PlayerMovement : MonoBehaviour
     protected bool strafeRight = false;
     protected bool doJump = false;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        mySprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, 25.0f, 56.0f), new Vector2(0.5f, 0.5f), 100.0f);
-
-        sr.sprite = mySprite;
+        animator = GetComponent<Animator>();
     }
-
     protected void ReloadTimeForJump()
     {
         timeJump = true;
@@ -73,16 +66,40 @@ public class PlayerMovement : MonoBehaviour
             rb2D.AddForce(transform.up * thrust);
             canJump = false;
             timeJump = false;
-            Invoke("ReloadTimeForJump", 0.5f);
+            Invoke("ReloadTimeForJump", 1f);
         }
-        if (strafeLeft || strafeRight)
+
+        if (strafeRight)
         {
-            transform.position += new Vector3(speed, 0, 0) * Input.GetAxis("Horizontal");
-            strafeLeft = false;
+            rb2D.velocity = new Vector2(speed * 25, rb2D.velocity.y);
+            if (canJump)
+            {
+                animator.Play("PlayerWalkingRight");
+            }
+            else
+            {
+                animator.Play("PlayerStands");
+            }
             strafeRight = false;
         }
-        // Alternatively, specify the force mode, which is ForceMode2D.Force by default
-        //rb2D.AddForce(transform.up * thrust, ForceMode2D.Impulse);
+        else if (strafeLeft)
+        {
+            rb2D.velocity = new Vector2(-speed * 25, rb2D.velocity.y);
+            if (canJump)
+            {
+                animator.Play("PlayerWalkingLeft");
+            }
+            else
+            {
+                animator.Play("PlayerStands");
+            }
+            strafeLeft = false;
+        }
+        else
+        {
+            rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+            animator.Play("PlayerStands");
+        }
         doJump = false;
     }
 }
