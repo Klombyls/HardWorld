@@ -41,10 +41,10 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < maxCount; i++) // тест, заполнить рандомные €чейки
         {
-            Item tempItem = data.items[Random.Range(0, data.items.Count)];
+            Item tempItem = data.items[Random.Range(1, data.items.Count)];
             if (tempItem.id != 0)
             {
-                AddItem(i, tempItem, Random.Range(1, maxStackItems));
+                AddItem(i, tempItem, Random.Range(999, maxStackItems));
             }
             else
             {
@@ -104,7 +104,7 @@ public class Inventory : MonoBehaviour
         items[id].count = count;
         items[id].itemGameObj.GetComponent<Image>().sprite = item.img;
 
-        if (count > 1 && item.id != 0)
+        if (count >= 1 && item.id != 0)
         {
             items[id].itemGameObj.GetComponentInChildren<Text>().text = count.ToString();
 
