@@ -10,16 +10,15 @@ public class HealthBar : MonoBehaviour
     public float health = 100f;
     public float maxHealth = 100f;
 
-    public void TakingDamage(float damage)
+
+    public void TakingDamage(int damage)
     {
         health -= damage;
 
-        if (health <= 0)
+        if (health < 0)
         {
-            Destroy(gameObject);
+            health = 0;
         }
-
- //       Bar.fillAmount = health / 100;
     }
 
     public void RecoveryPotion(float heal)

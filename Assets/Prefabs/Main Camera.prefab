@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -571,11 +571,53 @@ MonoBehaviour:
     name: Empty
     img: {fileID: 21300000, guid: 7d72443b742535f4abf5a9a4c14cc7b5, type: 3}
   - id: 1
-    name: dirt
+    name: Dirt
     img: {fileID: 21300000, guid: f3feeee22102e6e408a2e9a9f994de47, type: 3}
   - id: 2
-    name: 
+    name: Stone
     img: {fileID: 21300000, guid: 1b01da9fe6403d64ab819f23f0437d75, type: 3}
+  - id: 3
+    name: IronOre
+    img: {fileID: 21300000, guid: 5c5bcc8484c459546a3ef1ec2d8c5474, type: 3}
+  - id: 4
+    name: GoldOre
+    img: {fileID: 21300000, guid: 67e1175fd97ae1147b0b7e0aff329cc4, type: 3}
+  - id: 5
+    name: Pickaxe
+    img: {fileID: 21300000, guid: df57986c610af3e438d8897d31badd14, type: 3}
+  - id: 6
+    name: RustySword
+    img: {fileID: 21300000, guid: 6abed15a0f8ca25439186e681c351037, type: 3}
+  - id: 7
+    name: IronSword
+    img: {fileID: 21300000, guid: 82b73efb31340354d9a019ae0157a12a, type: 3}
+  - id: 8
+    name: GoldenSword
+    img: {fileID: 21300000, guid: 49011f1bc3e948740a2d1609217e90a1, type: 3}
+  - id: 9
+    name: No
+    img: {fileID: 21300000, guid: 4abe6901fcfbb9e43bf025f585964d71, type: 3}
+  - id: 10
+    name: IronArmor
+    img: {fileID: 21300000, guid: 1e02b5f6506da8446943fa1e73bc4338, type: 3}
+  - id: 11
+    name: GoldenArmor
+    img: {fileID: 21300000, guid: 375ad45ecb7c7cd40ad1a4d0f147c5c1, type: 3}
+  - id: 12
+    name: No
+    img: {fileID: 21300000, guid: 4abe6901fcfbb9e43bf025f585964d71, type: 3}
+  - id: 13
+    name: Bone
+    img: {fileID: 21300000, guid: 90e9fb4d991edf74cb1c76e02b8d81ce, type: 3}
+  - id: 14
+    name: BagOfBlood
+    img: {fileID: 21300000, guid: 6fb618df3b1a32446851f52f367dd228, type: 3}
+  - id: 15
+    name: Potion
+    img: {fileID: 21300000, guid: e56692fa2b02ca44195e841dbb91381d, type: 3}
+  - id: 16
+    name: ItemSummonBoss
+    img: {fileID: 21300000, guid: 3ea0b0cd9630aea49805a82e4b42871c, type: 3}
 --- !u!114 &4185675764338493045
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Animator animator;
+    private Animator animator;
     public Rigidbody2D rb2D;
-    public SpriteRenderer sr;
     public float thrust = 1f;
     public float speed = 1f;
 
@@ -61,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(doJump && canJump && timeJump)
+        if (doJump && canJump && timeJump)
         {
             rb2D.AddForce(transform.up * thrust);
             canJump = false;
@@ -72,27 +71,13 @@ public class PlayerMovement : MonoBehaviour
         if (strafeRight)
         {
             rb2D.velocity = new Vector2(speed * 25, rb2D.velocity.y);
-            if (canJump)
-            {
-                animator.Play("PlayerWalkingRight");
-            }
-            else
-            {
-                animator.Play("PlayerStands");
-            }
+            animator.Play("PlayerWalkingRight");
             strafeRight = false;
         }
         else if (strafeLeft)
         {
             rb2D.velocity = new Vector2(-speed * 25, rb2D.velocity.y);
-            if (canJump)
-            {
-                animator.Play("PlayerWalkingLeft");
-            }
-            else
-            {
-                animator.Play("PlayerStands");
-            }
+            animator.Play("PlayerWalkingLeft");
             strafeLeft = false;
         }
         else
