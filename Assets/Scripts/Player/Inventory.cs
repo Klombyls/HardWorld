@@ -14,6 +14,9 @@ public class Inventory : MonoBehaviour
 
     public GameObject gameObjShow;
     public GameObject gameImgShow;
+    public GameObject lootItem;
+    public GameObject player;
+    public GameObject world;
 
     public GameObject InventoryMainObject;
     public GameObject InventoryQuickAccessCells;
@@ -301,6 +304,23 @@ public class Inventory : MonoBehaviour
 
         return New;
 
+    }
+
+    public void InventoryDropout()
+    {
+        GameObject obj;
+        for(int i = 0; i < maxCount; i++)
+        {
+            if(items[i].id != 0)
+            {
+                obj = LootItem.CreateLootItem(player.transform, items[i].id, items[i].count, player, this, data, world, lootItem);
+                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-250f, 250f), Random.Range(0, 3000f)));
+
+                items[i].id = 0;
+                items[i].count = 0;
+            }
+        }
+        UpdateInventory();
     }
 }
 

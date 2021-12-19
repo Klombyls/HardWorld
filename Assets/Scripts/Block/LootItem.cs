@@ -8,15 +8,14 @@ public class LootItem : MonoBehaviour
     public DataBase data;
     public Transform playerTransform;
     public Inventory playerInventory;
-    // Start is called before the first frame update
-    void Start()
-    {
-        GetComponent<SpriteRenderer>().sprite = data.items[item.id].img;
-    }
+
+    public GameObject player;
+    public GameObject world;
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, playerTransform.position) <= 1)
+        if (player.activeSelf 
+            && Vector3.Distance(transform.position, playerTransform.position) <= 1)
         {
             GivePlayerItem();
         }
@@ -91,5 +90,22 @@ public class LootItem : MonoBehaviour
             playerInventory.items[id].count = 999;
             item.count = summ - 999;
         }
+    }
+
+    public static GameObject CreateLootItem(Transform transform, int id, int count, GameObject player, Inventory inv, DataBase data, GameObject parent, GameObject lootItem)
+    {
+        GameObject obj;
+        obj = Instantiate(lootItem, transform.position, transform.rotation, parent.transform);
+        obj.GetComponent<LootItem>().data = data;
+        obj.GetComponent<LootItem>().player = player;
+        obj.GetComponent<LootItem>().playerTransform = player.transform;
+        obj.GetComponent<LootItem>().playerInventory = inv;
+        obj.GetComponent<LootItem>().item.id = id;
+        obj.GetComponent<LootItem>().item.count = count;
+        obj.GetComponent<SpriteRenderer>().sprite = data.items[id].img;
+        obj.GetComponent<Transform>().localScale = new Vector2(180 / (float)data.items[id].img.texture.width, 180 / (float)data.items[id].img.texture.height);
+        obj.AddComponent<BoxCollider2D>();
+
+        return obj;
     }
 }
