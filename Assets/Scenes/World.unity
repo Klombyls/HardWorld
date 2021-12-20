@@ -1050,22 +1050,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5662163720896533983, guid: fc78da214199c3a45a5670f876b1e503, type: 3}
   m_PrefabInstance: {fileID: 5662163722405244056}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1121424760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121424754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c8cabfe8bb4eb8498278b3e606138b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bar: {fileID: 565479689}
-  health: 100
-  maxHealth: 100
-  playerInventory: {fileID: 1184536114}
 --- !u!114 &1184536114 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4185675764338493045, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
@@ -1761,7 +1745,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505743530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c34c69ac67b451d4593b13647887a0e4, type: 3}
   m_Name: 
@@ -2583,6 +2567,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1312138245, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312138245, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312138245, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4185675764338493002, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -2599,10 +2595,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1121424754}
-    - target: {fileID: 4185675764338493045, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
-      propertyPath: lootItem
-      value: 
-      objectReference: {fileID: 7126741590416114915, guid: 44b67fd503973154bb8d8f491862274f, type: 3}
     - target: {fileID: 4185675764338493046, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
       propertyPath: player
       value: 
@@ -2651,10 +2643,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8636748499518929821, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 5806610641022899631, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
+      propertyPath: es
+      value: 
+      objectReference: {fileID: 172716959}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a28c148a649741b41962ff6cd3df13a9, type: 3}
 --- !u!1001 &5662163722405244056
@@ -2664,6 +2656,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1121424760, guid: fc78da214199c3a45a5670f876b1e503, type: 3}
+      propertyPath: Bar
+      value: 
+      objectReference: {fileID: 565479689}
+    - target: {fileID: 1121424760, guid: fc78da214199c3a45a5670f876b1e503, type: 3}
+      propertyPath: playerInventory
+      value: 
+      objectReference: {fileID: 1184536114}
     - target: {fileID: 5662163720896533972, guid: fc78da214199c3a45a5670f876b1e503, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2711,10 +2711,6 @@ PrefabInstance:
     - target: {fileID: 5662163720896533983, guid: fc78da214199c3a45a5670f876b1e503, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5662163720896533983, guid: fc78da214199c3a45a5670f876b1e503, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc78da214199c3a45a5670f876b1e503, type: 3}
