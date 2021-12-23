@@ -7,19 +7,19 @@ using System.Text;
 
 public class GenerateWorld : MonoBehaviour
 {
+    int[,] world = new int[1000, 200];
+    int[,] fonWorld = new int[1000, 200];
+    int maxHeight = 150;
+    int minHeight = 50;
+    System.Random rand = new System.Random((int)DateTime.Now.Ticks);
+    string path;
+    int[] height = new int[1000];
+    Save sv = new Save();
     public void Generate()
     {
-        int[,] world = new int[1000, 200];
-        int maxHeight = 150;
-        int minHeight = 50;
-        int currHeight = 100;
-        var rand = new System.Random((int)DateTime.Now.Ticks);
-        int[] height = new int[1000];
-        Save sv = new Save();
-        string path;
         path = Path.Combine(Application.dataPath, "Save.json");
-
         // Генерация ландшафта
+        int currHeight = 100;
         for (int i = 485; i < 516; i++)
             height[i] = 100;
         for (int i = 516; i < 1000; i++)
@@ -72,8 +72,20 @@ public class GenerateWorld : MonoBehaviour
         for (int i = 0; i < 1000; i++)
         {
             for (int k = 0; k < height[i]; k++)
-                world[i, k] = 2;
+            {
+                if (rand.Next(100) % 20 == 0)
+                    world[i, k] = 3;
+                else if (rand.Next(100) % 33 == 0)
+                    world[i, k] = 4;
+                else world[i, k] = 2;
+            }
             world[i, height[i]] = 1;
+        }
+        for (int i = 0; i < 1000; i++)
+        {
+            for (int k = 0; k < height[i]; k++)
+                fonWorld[i, k] = 2;
+            fonWorld[i, height[i]] = 1;
         }
 
         // Сохранение нового мира
@@ -88,9 +100,20 @@ public class GenerateWorld : MonoBehaviour
             save[i] = sb.ToString();
         }
         sv.world = save;
-        sv.backgroundWorld = save;
+        var save2 = new string[200];
+        for (int i = 0; i < 200; i++)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int k = 0; k < 1000; k++)
+            {
+                sb.Append(fonWorld[k, i]);
+            }
+            save2[i] = sb.ToString();
+        }
+        sv.backgroundWorld = save2;
+        sv.x = 1500;
+        sv.y = height[500] * 3 + 3;
         File.WriteAllText(path, JsonUtility.ToJson(sv));
-        Debug.Log("File saved");
     }
 }
 
@@ -99,6 +122,10 @@ public class Save
 {
     [SerializeField] private string[] _world;
     [SerializeField] private string[] _backgroundWorld;
+    [SerializeField] private int[] _countItem;
+    [SerializeField] private int[] _idItem;
+    [SerializeField] public int x;
+    [SerializeField] public int y;
     public string[] world
     {
         get { return _world; }
@@ -108,5 +135,15 @@ public class Save
     {
         get { return _backgroundWorld; }
         set { _backgroundWorld = value; }
+    }
+    public int[] idItem
+    {
+        get { return _idItem; }
+        set { _idItem = value; }
+    }
+    public int[] countItem
+    {
+        get { return _countItem; }
+        set { _countItem = value; }
     }
 }
