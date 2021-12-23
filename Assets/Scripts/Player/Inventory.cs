@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
+    public CraftPanel craftPanel;
     public DataBase data;
     public int maxStackItems = 999;
 
@@ -44,7 +45,7 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < maxCount; i++) // тест, заполнить рандомные €чейки
         {
-            Item tempItem = data.items[Random.Range(1, data.items.Count)];
+            Item tempItem = data.items[Random.Range(1, data.items.Count - 1)];
             if (tempItem.id != 0)
             {
                 AddItem(i, tempItem, Random.Range(999, maxStackItems));
@@ -55,6 +56,8 @@ public class Inventory : MonoBehaviour
             }
         }
         UpdateInventory();
+        craftPanel.UpdateCountItems();
+        craftPanel.UpdateCraftPanel();
     }
 
     public void Update()
