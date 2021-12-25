@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static float fps;
+
+    void OnGUI()
+    {
+        fps = 1.0f / Time.deltaTime;
+        GUILayout.Label("FPS: " + (int)fps);
+    }
+
+
     private Animator animator;
     public Rigidbody2D rb2D;
     public float thrust = 1f;
