@@ -113,6 +113,10 @@ public class GenerateWorld : MonoBehaviour
         sv.backgroundWorld = save2;
         sv.x = 1500;
         sv.y = height[500] * 3 + 3;
+        sv.countItem = new int[37];
+        sv.idItem = new int[37];
+        sv.difficult = 0;
+
         File.WriteAllText(path, JsonUtility.ToJson(sv));
     }
 }
@@ -126,6 +130,7 @@ public class Save
     [SerializeField] private int[] _idItem;
     [SerializeField] public int x;
     [SerializeField] public int y;
+    [SerializeField] public int difficult;
     public string[] world
     {
         get { return _world; }

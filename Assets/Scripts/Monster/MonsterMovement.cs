@@ -8,6 +8,7 @@ public class MonsterMovement : MonoBehaviour
     public float speed = 1f;
 
     public float thrust = 2250;
+    public string nameMonster;
     protected bool timeJump = true;
 
     private bool movingRight = true;
@@ -19,6 +20,8 @@ public class MonsterMovement : MonoBehaviour
     public Animator animator;
 
     private Rigidbody2D rb2D;
+
+    public bool flip = false;
 
     protected void ReloadTimeForJump()
     {
@@ -39,17 +42,21 @@ public class MonsterMovement : MonoBehaviour
 
         if (transform.position.x >= playerPosition.position.x + Random.Range(2, 4))
         {
-            transform.eulerAngles = new Vector3(0, -180, 0);
+            if (flip)
+                transform.eulerAngles = new Vector3(0, -180, 0);
+            else transform.eulerAngles = new Vector3(0, 0, 0);
             movingRight = false;
             rb2D.velocity = new Vector2(-speed * 25, rb2D.velocity.y);
-            animator.Play("GhoulAnimation");
+            animator.Play(nameMonster + "Animation");
 
         }
         else if (transform.position.x <= playerPosition.position.x + Random.Range(-2, -4)) {
-            transform.eulerAngles = new Vector3(0, 0, 0);
+            if (flip)
+                transform.eulerAngles = new Vector3(0, 0, 0);
+            else transform.eulerAngles = new Vector3(0, -180, 0);
             movingRight = true;
             rb2D.velocity = new Vector2(speed * 25, rb2D.velocity.y);
-            animator.Play("GhoulAnimation");
+            animator.Play(nameMonster + "Animation");
         }
 
         if (movingRight)

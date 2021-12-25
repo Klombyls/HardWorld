@@ -8,12 +8,15 @@ public class SaveGame : MonoBehaviour
 {
     string path;
     Save sv = new Save();
+    LoadWorld myWorld;
     public void Savegame()
     {
-        int[,] world = LoadWorld.world;
-        int[,] fonWorld = LoadWorld.fonWorld;
+        myWorld = GameObject.Find("World").GetComponent<LoadWorld>();
+        int[,] world = myWorld.world;
+        int[,] fonWorld = myWorld.fonWorld;
         var save = new string[200];
         Save sv = new Save();
+        // Сохранение блоков
         for (int i = 0; i < 200; i++)
         {
             StringBuilder sb = new StringBuilder();
@@ -35,11 +38,21 @@ public class SaveGame : MonoBehaviour
             save2[i] = sb.ToString();
         }
         sv.backgroundWorld = save2;
-        sv.x = (int)LoadWorld.spawn.x;
-        sv.y = (int)LoadWorld.spawn.y;
+        // Сохранение спавна
+        sv.x = (int)myWorld.spawn.x;
+        sv.y = (int)myWorld.spawn.y;
 
+        sv.idItem = new int[37];
+        sv.countItem = new int[37];
         // Сохранение инвентаря
-
+        Inventory inv = GameObject.Find("Main Camera").GetComponent<Inventory>();
+        for (int i = 0; i < inv.maxCount; i++)
+        {
+            sv.idItem[i] = inv.items[i].id;
+            sv.countItem[i] = inv.items[i].count;
+        }
+        // Сохранение сложности игры
+        sv.difficult = myWorld.difficult;
         path = Path.Combine(Application.dataPath, "Save.json");
         File.WriteAllText(path, JsonUtility.ToJson(sv));
     }

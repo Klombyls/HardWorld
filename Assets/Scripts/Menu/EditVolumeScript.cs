@@ -9,11 +9,13 @@ public class EditVolumeScript : MonoBehaviour
 
     public void Volume()
     {
-        AudioListener.volume = slider.value;
+        PlayerPrefs.SetFloat("Volume", slider.value);
+        Debug.Log(slider.value);
     }
 
     private void Start()
     {
-        slider.value = AudioListener.volume;
+        if (PlayerPrefs.HasKey("Volume"))
+            slider.value = PlayerPrefs.GetFloat("Volume");
     }
 }

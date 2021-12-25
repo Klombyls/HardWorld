@@ -48,11 +48,11 @@ public class Inventory : MonoBehaviour
             Item tempItem = data.items[Random.Range(1, data.items.Count - 1)];
             if (tempItem.id != 0)
             {
-                AddItem(i, tempItem, Random.Range(999, maxStackItems));
+                //AddItem(i, tempItem, Random.Range(999, maxStackItems));
             }
             else
             {
-                AddItem(i, tempItem, 0);
+                //AddItem(i, tempItem, 0);
             }
         }
         UpdateInventory();

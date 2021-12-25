@@ -9,9 +9,11 @@ public class Pause : MonoBehaviour
 {
     public GameObject pause;
     string path;
+    public bool pauseActive;
     void Start()
     {
         pause.SetActive(false);
+        pauseActive = false;
     }
 
     // Update is called once per frame
@@ -19,14 +21,25 @@ public class Pause : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pause.SetActive(true);
-            Time.timeScale = 0;
+            if (!pauseActive)
+            {
+                pause.SetActive(true);
+                pauseActive = true;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                pause.SetActive(false);
+                pauseActive = false;
+                Time.timeScale = 1;
+            }
         }
     }
 
     public void PauseOff()
     {
         pause.SetActive(false);
+        pauseActive = false;
         Time.timeScale = 1;
     }
 
