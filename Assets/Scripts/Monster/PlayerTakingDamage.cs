@@ -14,7 +14,7 @@ public class PlayerTakingDamage : MonoBehaviour
         if (player.activeSelf
             && Vector3.Distance(transform.position, player.transform.position) <= 4)
         {
-            if (health.canTakeDamge)
+            if (health.canTakeDamage)
             {
                 health.TakingDamageFromMonster(damage);
             }

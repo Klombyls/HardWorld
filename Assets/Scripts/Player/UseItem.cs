@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UseItem : MonoBehaviour
 {
+    public HealthBar healthBar;
     public void Use(int id)
     {
         switch (id)
@@ -28,7 +29,7 @@ public class UseItem : MonoBehaviour
             case 9:
                 break;
             case 15:
-                HealthBar.RecoveryPotion();
+                healthBar.RecoveryPotion();
                 break;
             case 16:
                 break;

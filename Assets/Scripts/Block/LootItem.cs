@@ -11,6 +11,11 @@ public class LootItem : MonoBehaviour
     public GameObject player;
     public GameObject world;
 
+    private void Start()
+    {
+        Invoke("SelfDestruct", 600f);
+    }
+
     private void Update()
     {
         if (player.activeSelf 
@@ -126,5 +131,10 @@ public class LootItem : MonoBehaviour
         obj.AddComponent<BoxCollider2D>();
 
         return obj;
+    }
+
+    private void SelfDestruct()
+    {
+        Destroy(gameObject);
     }
 }

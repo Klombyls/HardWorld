@@ -7,47 +7,60 @@ public class HealthBar : MonoBehaviour
 {
 
     public Image Bar;
-    public bool canTakeDamge = true;
-    public static float health = 100f;
-    public static float maxHealth = 100f;
+    public bool canTakeDamage = true;
+    public float health = 100f;
+    public float maxHealth = 100f;
     public Inventory playerInventory;
-    private static float heal = 20f;
+    private float heal = 20f;
+    private bool canUseRecoveryPotion = true;
 
 
     private void ReloadTimeForDamage()
     {
-        canTakeDamge = true;
+        canTakeDamage = true;
     }
+
+    private void ReloadTimeForRecoveryPotion()
+    {
+        canUseRecoveryPotion = true;
+    }
+
     public void TakingDamageFromMonster(float damage)
     {
         if (playerInventory.idArmor != 0) health -= damage * (1 - (playerInventory.idArmor - 9) * 0.2f);
         else health -= damage;
-        canTakeDamge = false;
+        canTakeDamage = false;
         Invoke("ReloadTimeForDamage", 0.5f);
     }
 
     public void TakingDamageFromFall(float damage)
     {
         health -= damage;
-        canTakeDamge = false;
+        canTakeDamage = false;
         Invoke("ReloadTimeForDamage", 0.5f);
     }
 
-    public static void RecoveryPotion()
+    public void RecoveryPotion()
     {
         Inventory inv = GameObject.Find("Main Camera").GetComponent<Inventory>();
 
-        inv.items[inv.currentUseID - 1].count--;
-        if (inv.items[inv.currentUseID - 1].count == 0)
-            inv.items[inv.currentUseID - 1].id = 0;
-        inv.UpdateInventory();
-
-        health += heal;
-
-        if (health > maxHealth)
+        if (canUseRecoveryPotion)
         {
-            health = maxHealth;
+            inv.items[inv.currentUseID - 1].count--;
+            if (inv.items[inv.currentUseID - 1].count == 0)
+                inv.items[inv.currentUseID - 1].id = 0;
+            inv.UpdateInventory();
+
+            health += heal;
+
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+            canUseRecoveryPotion = false;
+            Invoke("ReloadTimeForRecoveryPotion", 20f);
         }
+
     }
 
     void Update()
