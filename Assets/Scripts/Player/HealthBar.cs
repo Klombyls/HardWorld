@@ -7,17 +7,41 @@ public class HealthBar : MonoBehaviour
 {
 
     public Image Bar;
-    public float health = 100f;
-    public float maxHealth = 100f;
+    public bool canTakeDamge = true;
+    public static float health = 100f;
+    public static float maxHealth = 100f;
     public Inventory playerInventory;
+    private static float heal = 20f;
 
-    public void TakingDamage(float damage)
+
+    private void ReloadTimeForDamage()
     {
-        health -= damage;
+        canTakeDamge = true;
+    }
+    public void TakingDamageFromMonster(float damage)
+    {
+        if (playerInventory.idArmor != 0) health -= damage * (1 - (playerInventory.idArmor - 9) * 0.2f);
+        else health -= damage;
+        canTakeDamge = false;
+        Invoke("ReloadTimeForDamage", 0.5f);
     }
 
-    public void RecoveryPotion(float heal)
+    public void TakingDamageFromFall(float damage)
     {
+        health -= damage;
+        canTakeDamge = false;
+        Invoke("ReloadTimeForDamage", 0.5f);
+    }
+
+    public static void RecoveryPotion()
+    {
+        Inventory inv = GameObject.Find("Main Camera").GetComponent<Inventory>();
+
+        inv.items[inv.currentUseID - 1].count--;
+        if (inv.items[inv.currentUseID - 1].count == 0)
+            inv.items[inv.currentUseID - 1].id = 0;
+        inv.UpdateInventory();
+
         health += heal;
 
         if (health > maxHealth)
@@ -32,6 +56,7 @@ public class HealthBar : MonoBehaviour
         {
             playerInventory.InventoryDropout();
             gameObject.SetActive(false);
+            playerInventory.idArmor = playerInventory.items[36].id;
             Invoke("RevivalPlayer", 5f);
         }
 

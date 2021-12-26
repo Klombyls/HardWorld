@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class PlayerTakingDamage : MonoBehaviour
 {
-    public float damage = 7f;
-    public string collisionTag;
+    public HealthBar health;
+    public float damage;
 
+    public GameObject player;
 
-    private void OnCollisionEnter2D(Collision2D coll)
+    private void Update()
     {
-        if(coll.gameObject.tag == collisionTag) 
+        if (player.activeSelf
+            && Vector3.Distance(transform.position, player.transform.position) <= 4)
         {
-            HealthBar health = coll.gameObject.GetComponent<HealthBar>();
-            health.TakingDamage(damage);
+            if (health.canTakeDamge)
+            {
+                health.TakingDamageFromMonster(damage);
+            }
         }
     }
+   
 }

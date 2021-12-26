@@ -17,13 +17,14 @@ public class CraftPanel : MonoBehaviour
 
     public GameObject backGround;
     public GameObject cellArea;
-    public GameObject ShowNeedItemsArea;
+    public GameObject showNeedItemsArea;
     public GameObject buttonCreateItemArea;
     public GameObject gameObjShow;
     public GameObject gameImgShow;
     public GameObject buttonCreateItem;
     private GameObject buttonCreate;
     public GameObject cellsContainer;
+    public GameObject scrollBar;
 
     public EventSystem es;
 
@@ -53,7 +54,7 @@ public class CraftPanel : MonoBehaviour
         {
             items.Add(new ItemInventory { id = i, count = 0 });
         }
-        for (int i = 0; i < 36; i++)
+        for (int i = 0; i < items.Count; i++)
         {
             items[inv.items[i].id].count += inv.items[i].count;
         }
@@ -74,6 +75,7 @@ public class CraftPanel : MonoBehaviour
                 craftItems[craftItems.Count - 1].itemGameObj = CreateCraftItemButton(craftItems[craftItems.Count - 1].idCell, data.items[craftItems[craftItems.Count - 1].id].img);
             }
         }
+        scrollBar.GetComponent<Scrollbar>().value = 1;
         cellsContainer.GetComponent<RectTransform>().offsetMin = new Vector2(cellsContainer.GetComponent<RectTransform>().offsetMin.x, -60 * (int)(craftItems.Count / 4));
     }
 
@@ -137,7 +139,7 @@ public class CraftPanel : MonoBehaviour
         int countItemsNeed = craftItem.needItems.Count;
         for(int i = 0; i < countItemsNeed; i++)
         {
-            GameObject newItem = Instantiate(gameImgShow, ShowNeedItemsArea.transform) as GameObject;
+            GameObject newItem = Instantiate(gameImgShow, showNeedItemsArea.transform) as GameObject;
             newItem.name = craftItem.needItems[i].id.ToString();
 
             ItemInventory ii = new ItemInventory();
@@ -168,7 +170,7 @@ public class CraftPanel : MonoBehaviour
         {
             int count = craftItem.needItems[i].count;
             int id = craftItem.needItems[i].id;
-            for(int j = 0; j < 36; j++)
+            for(int j = 0; j < items.Count; j++)
             {
                 if (count == 0) break;
                 if (inv.items[j].id == id)

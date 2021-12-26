@@ -6,7 +6,6 @@ public class LootItem : MonoBehaviour
 {
     public ItemInventory item;
     public DataBase data;
-    public Transform playerTransform;
     public Inventory playerInventory;
 
     public GameObject player;
@@ -15,7 +14,7 @@ public class LootItem : MonoBehaviour
     private void Update()
     {
         if (player.activeSelf 
-            && Vector3.Distance(transform.position, playerTransform.position) <= 1)
+            && Vector3.Distance(transform.position, player.transform.position) <= 1)
         {
             GivePlayerItem();
         }
@@ -30,23 +29,29 @@ public class LootItem : MonoBehaviour
         int id = FindThisItemAtInventoryWithoutFullMaxStack();
         if(id != -1)
         {
-            AddRightAmountAtInventory(id);
-            playerInventory.Update();
+            AddItemWithUpdatePanels(id);
         } 
         else
         {
             id = FindEmptyCellAtInventory();
             if(id != -1)
             {
-                AddRightAmountAtInventory(id);
-                playerInventory.Update();
+                AddItemWithUpdatePanels(id);
             }
         }
     }
 
+    private void AddItemWithUpdatePanels(int id)
+    {
+        AddRightAmountAtInventory(id);
+        playerInventory.UpdateInventory();
+        playerInventory.craftPanel.UpdateCountItems();
+        playerInventory.craftPanel.UpdateCraftPanel();
+    }
+
     private int FindThisItemAtInventoryWithoutFullMaxStack()
     {
-        int maxInventory = playerInventory.maxCount;
+        int maxInventory = playerInventory.maxCount - 1;
         for(int i = 0; i < maxInventory; i++)
         {
             if(playerInventory.items[i].count != 999 && playerInventory.items[i].id == item.id)
@@ -59,7 +64,7 @@ public class LootItem : MonoBehaviour
 
     private int FindEmptyCellAtInventory()
     {
-        int maxInventory = playerInventory.maxCount;
+        int maxInventory = playerInventory.maxCount - 1;
         for (int i = 0; i < maxInventory; i++)
         {
             if(playerInventory.items[i].id == 0)
@@ -98,7 +103,21 @@ public class LootItem : MonoBehaviour
         obj = Instantiate(lootItem, transform.position, transform.rotation, parent.transform);
         obj.GetComponent<LootItem>().data = data;
         obj.GetComponent<LootItem>().player = player;
-        obj.GetComponent<LootItem>().playerTransform = player.transform;
+        obj.GetComponent<LootItem>().playerInventory = inv;
+        obj.GetComponent<LootItem>().item.id = id;
+        obj.GetComponent<LootItem>().item.count = count;
+        obj.GetComponent<SpriteRenderer>().sprite = data.items[id].img;
+        obj.GetComponent<Transform>().localScale = new Vector2(180 / (float)data.items[id].img.texture.width, 180 / (float)data.items[id].img.texture.height);
+        obj.AddComponent<BoxCollider2D>();
+
+        return obj;
+    }
+    public static GameObject CreateLootItem(Vector3 position, Quaternion rotation , int id, int count, GameObject player, Inventory inv, DataBase data, GameObject parent, GameObject lootItem)
+    {
+        GameObject obj;
+        obj = Instantiate(lootItem, position, rotation, parent.transform);
+        obj.GetComponent<LootItem>().data = data;
+        obj.GetComponent<LootItem>().player = player;
         obj.GetComponent<LootItem>().playerInventory = inv;
         obj.GetComponent<LootItem>().item.id = id;
         obj.GetComponent<LootItem>().item.count = count;

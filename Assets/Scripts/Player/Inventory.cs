@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class Inventory : MonoBehaviour
 {
     public CraftPanel craftPanel;
+    public UseItem useItem;
     public DataBase data;
     public int maxStackItems = 999;
 
@@ -19,14 +20,17 @@ public class Inventory : MonoBehaviour
     public GameObject player;
     public GameObject world;
 
-    public GameObject InventoryMainObject;
-    public GameObject InventoryQuickAccessCells;
-    public GameObject ImagesQuickAccessCells;
+    public GameObject armorCell;
+    public GameObject inventoryMainObject;
+    public GameObject inventoryQuickAccessCells;
+    public GameObject imagesQuickAccessCells;
+    public GameObject buttonDropItem;
     public int maxCount;
 
     public Camera cam;
     public EventSystem es;
 
+    public  int idArmor = 0;
     public int currentID;
     public int currentUseID = 1;
     public ItemInventory currentItem;
@@ -43,7 +47,7 @@ public class Inventory : MonoBehaviour
             AddGraphics();
         }
 
-        for (int i = 0; i < maxCount; i++) // тест, заполнить рандомные €чейки
+        for (int i = 0; i < maxCount - 1; i++) // тест, заполнить рандомные €чейки
         {
             Item tempItem = data.items[Random.Range(1, data.items.Count - 1)];
             if (tempItem.id != 0)
@@ -58,6 +62,8 @@ public class Inventory : MonoBehaviour
         UpdateInventory();
         craftPanel.UpdateCountItems();
         craftPanel.UpdateCraftPanel();
+        Button tempButton = buttonDropItem.GetComponent<Button>();
+        tempButton.onClick.AddListener(delegate { DropItem(); });
     }
 
     public void Update()
@@ -72,6 +78,14 @@ public class Inventory : MonoBehaviour
             backGround.SetActive(!backGround.activeSelf);
             backGroundImages.SetActive(!backGroundImages.activeSelf);
             UpdateInventory();
+            if (backGroundImages.activeSelf && movingObject.gameObject.activeSelf)
+            {
+                buttonDropItem.SetActive(true);
+            }
+            else
+            {
+                buttonDropItem.SetActive(false);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -102,6 +116,16 @@ public class Inventory : MonoBehaviour
         {
             currentUseID = 6;
             UpdateInventory();
+        }
+        if(backGroundImages.activeSelf)
+        {
+            if (!buttonDropItem.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    useItem.Use(items[currentUseID - 1].id);
+                }
+            }
         }
     }
     public void AddItem(int id, Item item, int count)
@@ -142,7 +166,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < 6; i++)
         {
-            GameObject newItem = Instantiate(gameImgShow, ImagesQuickAccessCells.transform) as GameObject;
+            GameObject newItem = Instantiate(gameImgShow, imagesQuickAccessCells.transform) as GameObject;
             newItem.name = i.ToString();
 
             ItemInventory ii = new ItemInventory();
@@ -157,7 +181,7 @@ public class Inventory : MonoBehaviour
         }
         for (int i = 0; i < 6; i++)
         {
-            GameObject newItem = Instantiate(gameObjShow, InventoryQuickAccessCells.transform) as GameObject;
+            GameObject newItem = Instantiate(gameObjShow, inventoryQuickAccessCells.transform) as GameObject;
 
             newItem.name = i.ToString();
 
@@ -175,9 +199,9 @@ public class Inventory : MonoBehaviour
 
             items.Add(ii);
         }
-        for (int i = 6; i < maxCount; i++)
+        for (int i = 6; i < 36; i++)
         {
-            GameObject newItem = Instantiate(gameObjShow, InventoryMainObject.transform) as GameObject;
+            GameObject newItem = Instantiate(gameObjShow, inventoryMainObject.transform) as GameObject;
 
             newItem.name = i.ToString();
 
@@ -195,6 +219,27 @@ public class Inventory : MonoBehaviour
 
             items.Add(ii);
         }
+        for (int i = 36; i == 36; i++)
+        {
+            GameObject newItem = Instantiate(gameObjShow, armorCell.transform) as GameObject;
+
+            newItem.name = i.ToString();
+
+            ItemInventory ii = new ItemInventory();
+            ii.itemGameObj = newItem;
+
+            RectTransform rt = newItem.GetComponent<RectTransform>();
+            rt.localPosition = new Vector3(0, 0, 0);
+            rt.localScale = new Vector3(1, 1, 1);
+            newItem.GetComponentInChildren<RectTransform>().localScale = new Vector3(1, 1, 1);
+
+            Button tempButton = newItem.GetComponent<Button>();
+
+            tempButton.onClick.AddListener(delegate { SelectObject(); });
+
+            items.Add(ii);
+        }
+
     }
 
     public void UpdateInventory()
@@ -258,14 +303,38 @@ public class Inventory : MonoBehaviour
         }
         else
         {
+            if(int.Parse(es.currentSelectedGameObject.name) == 36)
+            {
+                if (!(currentItem.id == 10 || currentItem.id == 11 || currentItem.id == 12))
+                {
+                    return;
+                }
+            }
+
             ItemInventory II = items[int.Parse(es.currentSelectedGameObject.name)];
 
             if (currentItem.id != II.id)
             {
+                if (currentID == 36)
+                {
+                    int secondSelectedId = int.Parse(es.currentSelectedGameObject.name);
+                    if (items[secondSelectedId].id == 10 || items[secondSelectedId].id == 11 || items[secondSelectedId].id == 12 || items[secondSelectedId].id == 0)
+                    {
+                        AddInventoryItem(currentID, II);
 
-                AddInventoryItem(currentID, II);
+                        AddInventoryItem(int.Parse(es.currentSelectedGameObject.name), currentItem);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    AddInventoryItem(currentID, II);
 
-                AddInventoryItem(int.Parse(es.currentSelectedGameObject.name), currentItem);
+                    AddInventoryItem(int.Parse(es.currentSelectedGameObject.name), currentItem);
+                }
             }
             else
             {
@@ -286,14 +355,16 @@ public class Inventory : MonoBehaviour
                 }
             }
             currentID = -1;
-
+            idArmor = items[36].id;
             movingObject.gameObject.SetActive(false);
         }
+        craftPanel.UpdateCountItems();
+        craftPanel.UpdateCraftPanel();
     }
     public void MoveObject()
     {
         Vector3 pos = Input.mousePosition + offset;
-        pos.z = InventoryMainObject.GetComponent<RectTransform>().position.z;
+        pos.z = inventoryMainObject.GetComponent<RectTransform>().position.z;
         movingObject.position = cam.ScreenToWorldPoint(pos);
     }
 
@@ -324,6 +395,25 @@ public class Inventory : MonoBehaviour
             }
         }
         UpdateInventory();
+        craftPanel.UpdateCountItems();
+        craftPanel.UpdateCraftPanel();
+    }
+    private void DropItem()
+    {
+        Vector3 offsetItemPos = new Vector3();
+        offsetItemPos.y = 2.1f;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float addForceX = (mousePos.x - player.transform.position.x) * 75f;
+        float addForceY = (mousePos.y - player.transform.position.y) * 250f;
+        if (addForceY > 3000) addForceY = 3000;
+        if (addForceX > 600) addForceX = 600;
+        if (addForceX < -600) addForceX = -600;
+        GameObject temp = LootItem.CreateLootItem(player.transform.position + offsetItemPos, new Quaternion(), currentItem.id, currentItem.count, player, this, data, world, lootItem);
+        temp.GetComponent<Rigidbody2D>().AddForce(new Vector2(addForceX, addForceY));
+        buttonDropItem.gameObject.SetActive(false);
+        currentID = -1;
+        movingObject.gameObject.SetActive(false);
+        idArmor = items[36].id;
     }
 }
 

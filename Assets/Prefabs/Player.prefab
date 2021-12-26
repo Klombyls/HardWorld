@@ -100,9 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dbc81dc6e2d754db7d0de28326201e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 1121424760}
+  inv: {fileID: 0}
   rb2D: {fileID: 5662163720896533969}
   thrust: 2250
   speed: 1
+  y1: 0
 --- !u!50 &5662163720896533969
 Rigidbody2D:
   serializedVersion: 4
@@ -172,6 +175,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bar: {fileID: 0}
-  health: 100
-  maxHealth: 100
+  canTakeDamge: 1
   playerInventory: {fileID: 0}
