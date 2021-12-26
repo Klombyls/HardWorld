@@ -8,7 +8,15 @@ public class SwordStrike : MonoBehaviour
     [SerializeField]
     GameObject attackHitBox;
 
+    [SerializeField]
+    GameObject attacksPose;
+
     public float RotateSpeed;
+    public Transform attackPose;
+    public float attackRange;
+    public LayerMask Monster;
+    public float dmg = 10f;
+
     bool isAttacking = false;
 
     private void Start()
@@ -23,6 +31,12 @@ public class SwordStrike : MonoBehaviour
             isAttacking = true;
 
             StartCoroutine(DoAttack());
+
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPose.position, attackRange, Monster);
+            for (int i = 0; i < enemiesToDamage.Length; i++)
+            {
+                enemiesToDamage[i].GetComponent<MonsterTakingDamage>().TakingDmg(dmg);
+            }
         }
     }
 
@@ -48,8 +62,14 @@ public class SwordStrike : MonoBehaviour
         attackHitBox.SetActive(true);
         yield return new WaitForSeconds(0.4f);
         attackHitBox.SetActive(false);
-        attackHitBox.transform.rotation = Quaternion.identity;
+        attackHitBox.transform.rotation = Quaternion.Euler(0f, 0f, 34.27f);
 
         isAttacking = false;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPose.position, attackRange);
     }
 }
