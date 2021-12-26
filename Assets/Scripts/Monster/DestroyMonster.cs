@@ -6,6 +6,7 @@ public class DestroyMonster : MonoBehaviour
 {
     SpawnMonster monsters;
     GameObject player;
+    public int distance;
     void Start()
     {
         monsters = GameObject.Find("World").GetComponent<SpawnMonster>();
@@ -18,7 +19,7 @@ public class DestroyMonster : MonoBehaviour
             for (int i = 0; i < monsters.monsters.Count; i++)
             {
                 GameObject monster = monsters.monsters[i];
-                if (Vector3.Distance(player.transform.position, monster.transform.position) > 250)
+                if (Vector3.Distance(player.transform.position, monster.transform.position) > distance)
                 {
                     monsters.monsters.Remove(monster);
                     Destroy(monster);

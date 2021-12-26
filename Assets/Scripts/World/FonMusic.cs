@@ -10,7 +10,6 @@ public class FonMusic : MonoBehaviour
     public float audio1Length;
     public float audio2Length;
     public float audio3Length;
-    float length = 0;
     int currentmusic = 1;
     bool play = true;
 
