@@ -118,17 +118,6 @@ public class GenerateWorld : MonoBehaviour
         sv.idItem = new int[37];
         sv.countItem[0] = 1;
         sv.idItem[0] = 6;
-
-        //
-        sv.countItem[1] = 1;
-        sv.idItem[1] = 7;
-        sv.countItem[2] = 1;
-        sv.idItem[2] = 8;
-        sv.countItem[3] = 1;
-        sv.idItem[3] = 9;
-        sv.countItem[4] = 10;
-        sv.idItem[4] = 16;
-        //
         sv.difficult = 0;
 
 
