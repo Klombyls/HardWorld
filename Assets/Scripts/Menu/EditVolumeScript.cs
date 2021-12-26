@@ -10,7 +10,6 @@ public class EditVolumeScript : MonoBehaviour
     public void Volume()
     {
         PlayerPrefs.SetFloat("Volume", slider.value);
-        Debug.Log(slider.value);
     }
 
     private void Start()

@@ -9,14 +9,7 @@ public class BlockPlacement : MonoBehaviour
     static Inventory inv;
     static LoadWorld myWorld;
     static SpawnMonster monsters;
-    // Убрать метод Update
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            Place();
-        }
-    }
+    static Transform worldTransform;
     public static void Place()
     {
         if (player == null)
@@ -27,6 +20,8 @@ public class BlockPlacement : MonoBehaviour
             myWorld = GameObject.Find("World").GetComponent<LoadWorld>();
         if (monsters == null)
             monsters = GameObject.Find("World").GetComponent<SpawnMonster>();
+        if (worldTransform == null)
+            worldTransform = GameObject.Find("World").transform;
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         int x = (int)(pos.x + 1.5) / 3;
         x *= 3;
@@ -40,13 +35,13 @@ public class BlockPlacement : MonoBehaviour
             {
                 if (inv.items[inv.currentUseID - 1].id == 1)
                 {
-                    GameObject block = Instantiate(Resources.Load<GameObject>("DirtBlock"), new Vector3(x, y, 1), new Quaternion());
+                    GameObject block = Instantiate(Resources.Load<GameObject>("DirtBlock"), new Vector3(x, y, 1), new Quaternion(), worldTransform);
                     block.name = "Block" + x + "X" + y;
                     myWorld.world[x / 3, y / 3] = 1;
                 }
                 if (inv.items[inv.currentUseID - 1].id == 2)
                 {
-                    GameObject block = Instantiate(Resources.Load<GameObject>("StoneBlock"), new Vector3(x, y, 1), new Quaternion());
+                    GameObject block = Instantiate(Resources.Load<GameObject>("StoneBlock"), new Vector3(x, y, 1), new Quaternion(), worldTransform);
                     block.name = "Block" + x + "X" + y;
                     myWorld.world[x / 3, y / 3] = 2;
                 }

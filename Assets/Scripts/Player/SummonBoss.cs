@@ -11,16 +11,9 @@ public class SummonBoss : MonoBehaviour
     static Pause pause;
     static SpawnMonster monsters;
     static Inventory inv;
+    public GameObject golem;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Summon();
-        }
-    }
-
-    public static void Summon()
+    public void Summon()
     {
         GameObject player = GameObject.Find("Player");
         inv = GameObject.Find("Main Camera").GetComponent<Inventory>();
@@ -43,9 +36,11 @@ public class SummonBoss : MonoBehaviour
         y = y * 3 + height;
         if (CanSpawn(x, y))
         {
-            GameObject monster = Instantiate(Resources.Load<GameObject>("Golem"), new Vector3(x, y, 1), new Quaternion());
+            GameObject monster = Instantiate(golem, new Vector3(x, y, 1), new Quaternion());
             monster.GetComponent<MonsterMovement>().playerPosition = player.transform;
             monster.name = "Boss";
+            monster.GetComponent<MonsterTakingDamage>().hp = 1000 + myWorld.difficult * 200;
+            monster.GetComponent<PlayerTakingDamage>().damage = 25 + myWorld.difficult * 5;
             monsters.monsters.Add(monster);
             inv.items[inv.currentUseID - 1].count--;
             if (inv.items[inv.currentUseID - 1].count == 0)
@@ -54,7 +49,7 @@ public class SummonBoss : MonoBehaviour
         }
 
     }
-    static bool CanSpawn(int x, int y)
+    bool CanSpawn(int x, int y)
     {
         if (pause.pauseActive)
             return false;

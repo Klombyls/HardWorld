@@ -73,10 +73,11 @@ public class GenerateWorld : MonoBehaviour
         {
             for (int k = 0; k < height[i]; k++)
             {
-                if (rand.Next(100) % 20 == 0)
-                    world[i, k] = 3;
-                else if (rand.Next(100) % 33 == 0)
+                int chance = rand.Next(200);
+                if (chance < 3)
                     world[i, k] = 4;
+                else if (chance < 20)
+                    world[i, k] = 3;
                 else world[i, k] = 2;
             }
             world[i, height[i]] = 1;
@@ -115,7 +116,21 @@ public class GenerateWorld : MonoBehaviour
         sv.y = height[500] * 3 + 3;
         sv.countItem = new int[37];
         sv.idItem = new int[37];
+        sv.countItem[0] = 1;
+        sv.idItem[0] = 6;
+
+        //
+        sv.countItem[1] = 1;
+        sv.idItem[1] = 7;
+        sv.countItem[2] = 1;
+        sv.idItem[2] = 8;
+        sv.countItem[3] = 1;
+        sv.idItem[3] = 9;
+        sv.countItem[4] = 10;
+        sv.idItem[4] = 16;
+        //
         sv.difficult = 0;
+
 
         File.WriteAllText(path, JsonUtility.ToJson(sv));
     }

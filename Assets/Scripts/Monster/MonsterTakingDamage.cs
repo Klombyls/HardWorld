@@ -5,8 +5,16 @@ using UnityEngine;
 public class MonsterTakingDamage : MonoBehaviour
 {
     public float hp = 20f;
-    public Inventory inv;
+    Inventory inv;
     public List<GettingReward> lut = new List<GettingReward>();
+    SpawnMonster monsters;
+    
+
+    private void Start()
+    {
+        inv = GameObject.Find("Main Camera").GetComponent<Inventory>();
+        monsters = GameObject.Find("World").GetComponent<SpawnMonster>();
+    }
 
     public void TakingDmg(float dmg)
     {
@@ -21,7 +29,7 @@ public class MonsterTakingDamage : MonoBehaviour
             {
                 LootItem.CreateLootItem(transform, lut[i].id, Random.Range(lut[i].min, lut[i].max), inv.player, inv, inv.data, inv.world, inv.lootItem);
             }
-
+            monsters.monsters.Remove(gameObject);
             Destroy(gameObject);
         }
     }

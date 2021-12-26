@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4017525331032651246}
   - component: {fileID: 4017525331032651247}
   - component: {fileID: -2287200347108946633}
+  - component: {fileID: -1726790189102684239}
+  - component: {fileID: 857419761376378114}
   m_Layer: 7
   m_Name: Golem
   m_TagString: Untagged
@@ -162,3 +164,39 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.22726099}
   m_Size: {x: 0.2, y: 0.47}
   m_Direction: 0
+--- !u!114 &-1726790189102684239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4017525331032651155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e35f87d57567a48a2ff2a5ec3a4f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+--- !u!114 &857419761376378114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4017525331032651155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ca17327487dbc43a048d4c7e43b8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 20
+  lut:
+  - id: 9
+    min: 0
+    max: 1
+  - id: 12
+    min: 0
+    max: 1
+  - id: 15
+    min: 1
+    max: 3

@@ -84,7 +84,7 @@ public class HealthBar : MonoBehaviour
 
     private void RevivalPlayer()
     {
-        transform.position = new Vector3(1500, 300);
+        transform.position = new Vector3(1500, 300, 1);
         health = 100f;
         gameObject.SetActive(true);
     }

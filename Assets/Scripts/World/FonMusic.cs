@@ -36,11 +36,9 @@ public class FonMusic : MonoBehaviour
         if (currentmusic == 1)
         {
             audio1.Play();
-            Debug.Log("1");
             yield return new WaitForSeconds(audio1Length);
             play = true;
             currentmusic = 2;
-            Debug.Log("Play1");
         }
         else if (currentmusic == 2)
         {
@@ -48,7 +46,6 @@ public class FonMusic : MonoBehaviour
             yield return new WaitForSeconds(audio2Length);
             play = true;
             currentmusic = 3;
-            Debug.Log("Play2");
         }
         else
         {
@@ -56,7 +53,6 @@ public class FonMusic : MonoBehaviour
             yield return new WaitForSeconds(audio3Length);
             play = true;
             currentmusic = 1;
-            Debug.Log("Play3");
         }
     }
 }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7266400431610505622}
   - component: {fileID: 8248122402912717332}
   - component: {fileID: -9148712927192780792}
+  - component: {fileID: -6915297334582942360}
+  - component: {fileID: 8488303981787290697}
   m_Layer: 7
   m_Name: Dragon
   m_TagString: Untagged
@@ -162,3 +164,36 @@ CapsuleCollider2D:
   m_Offset: {x: 0.006724, y: 0.48412198}
   m_Size: {x: 2.16, y: 1.08}
   m_Direction: 1
+--- !u!114 &-6915297334582942360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749376292782226879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e35f87d57567a48a2ff2a5ec3a4f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+--- !u!114 &8488303981787290697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749376292782226879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ca17327487dbc43a048d4c7e43b8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 20
+  lut:
+  - id: 14
+    min: 6
+    max: 10
+  - id: 13
+    min: 10
+    max: 15

@@ -5,14 +5,6 @@ using UnityEngine;
 
 public class BlockMining : MonoBehaviour
 {
-    // Убрать метод Update
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Mining();
-        }
-    }
     public static void Mining() {
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         int x = (int)(pos.x + 1.5)/3;

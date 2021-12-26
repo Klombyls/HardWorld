@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1984336521140282723}
   - component: {fileID: 1984336521140282732}
   - component: {fileID: 1984336521140282735}
-  - component: {fileID: 1984336521140282734}
   - component: {fileID: -5761045243969216727}
+  - component: {fileID: -5392027363216082970}
+  - component: {fileID: 8409230151702085779}
   m_Layer: 7
   m_Name: Ghoul
   m_TagString: Untagged
@@ -147,20 +148,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1984336521140282734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984336521140282721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e35f87d57567a48a2ff2a5ec3a4f3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 7
-  collisionTag: Player
 --- !u!70 &-5761045243969216727
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -177,3 +164,36 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0027269125, y: 0.44721267}
   m_Size: {x: 0.98, y: 0.94}
   m_Direction: 0
+--- !u!114 &-5392027363216082970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984336521140282721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e35f87d57567a48a2ff2a5ec3a4f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+--- !u!114 &8409230151702085779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984336521140282721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ca17327487dbc43a048d4c7e43b8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 20
+  lut:
+  - id: 14
+    min: 1
+    max: 1
+  - id: 13
+    min: 2
+    max: 3
